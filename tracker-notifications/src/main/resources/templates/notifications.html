@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Notificaciones', ~{::main}, 'notifications')}">
+<body><main id="main" class="container">
+  <header class="page-heading"><h1 class="page-title">Notificaciones externas</h1>
+    <p>Solicita un aviso genérico de un recordatorio vigente. La cola se procesa cada minuto con la aplicación encendida. Configura el consentimiento y las horas de silencio en <a th:href="@{/profile}">tu perfil</a>.</p></header>
+  <p th:if="${!configured}">Canal desactivado: configura TRACKER_NTFY_TOPIC para usar ntfy.</p>
+  <p class="notice" th:if="${deliveryResult != null}" th:text="${#messages.msg('delivery.' + deliveryResult)}"></p>
+  <section class="panel"><h2>Recordatorios disponibles</h2>
+    <p>Los recordatorios internos se revisan con la aplicación encendida. Antes de entregar se comprueba de nuevo que la actividad siga pendiente. Las solicitudes explícitas respetan también el silencio y el consentimiento.</p>
+    <ul class="open-list"><li th:each="item : ${due}">
+      <p th:text="${item.kind} + ' · ' + ${item.dueAt}"></p>
+      <form th:action="@{/notifications/{id}/send(id=${item.activityId})}" method="post"><button class="btn" type="submit" th:disabled="${!configured}">Solicitar aviso genérico</button></form>
+    </li></ul>
+  </section>
+  <section class="panel"><h2>Cola e historial de entregas</h2>
+    <p>Una aceptación del proveedor no demuestra lectura. Un envío incierto o interrumpido no se reenvía automáticamente; comprueba el destino. Al reiniciar, los envíos interrumpidos pasan a inciertos; los pendientes se recuperan. Desactivar consentimiento o categorías cancela pendientes automáticos. No se ofrece reintento en esta versión.</p>
+    <ul class="open-list"><li th:each="item : ${deliveries}">
+      <p th:text="${#messages.msg('delivery.' + item.state)}"></p>
+      <p class="muted" th:text="${item.message.kind} + ' · ' + ${item.message.createdAt} + ' · ' + ${item.updatedAt}"></p>
+    </li></ul>
+    <nav aria-label="Páginas de notificaciones" class="filters"><a th:if="${page > 0}" th:href="@{/notifications(page=${page - 1})}">Anterior</a><span th:text="'Página ' + ${page + 1}"></span><a th:if="${deliveries.size() == 25}" th:href="@{/notifications(page=${page + 1})}">Siguiente</a></nav>
+  </section>
+</main></body></html>

@@ -1,4 +1,4 @@
-name: job-application-tracker-modular-quality
+name: job-application-tracker-ddd-quality
 services:
   quality:
     build:

@@ -9,9 +9,9 @@ $plainPassword = [System.Net.NetworkCredential]::new('', $securePassword).Passwo
 $previousOutputEncoding = $OutputEncoding
 $OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 try {
-    docker build --target runtime -t job-application-tracker-modular:local .
+    docker build --target runtime -t job-application-tracker-ddd:local .
     if ($LASTEXITCODE -ne 0) { throw 'Docker build failed.' }
-    $hashOutput = $plainPassword | docker run --rm -i --entrypoint java job-application-tracker-modular:local '-Dloader.main=dev.adriangm.tracker.tools.PasswordHash' -cp /app/app.jar org.springframework.boot.loader.launch.PropertiesLauncher
+    $hashOutput = $plainPassword | docker run --rm -i --entrypoint java job-application-tracker-ddd:local '-Dloader.main=dev.adriangm.tracker.tools.PasswordHash' -cp /app/app.jar org.springframework.boot.loader.launch.PropertiesLauncher
     if ($LASTEXITCODE -ne 0) { throw 'Password hashing failed.' }
     $hash = ($hashOutput | Where-Object { $_ -match '^\{bcrypt\}\$2[aby]\$' } | Select-Object -Last 1).Trim()
     if (-not $hash) { throw 'No password hash was generated.' }
@@ -19,7 +19,7 @@ try {
     $random = [System.Security.Cryptography.RandomNumberGenerator]::Create()
     try { $random.GetBytes($randomBytes) } finally { $random.Dispose() }
     $databasePassword = [BitConverter]::ToString($randomBytes).Replace('-', '').ToLowerInvariant()
-    $content = "APP_PORT=8091`nTRACKER_USERNAME=$username`nTRACKER_PASSWORD_HASH='$hash'`nDB_PASSWORD=$databasePassword`n"
+    $content = "APP_PORT=8092`nTRACKER_USERNAME=$username`nTRACKER_PASSWORD_HASH='$hash'`nDB_PASSWORD=$databasePassword`n"
     [System.IO.File]::WriteAllText((Join-Path (Get-Location) '.env'), $content, [System.Text.UTF8Encoding]::new($false))
     Write-Host 'Configuración creada. Arranca con: docker compose up -d'
 } finally { $plainPassword = $null; $hashOutput = $null; $hash = $null; $OutputEncoding = $previousOutputEncoding; $securePassword.Dispose() }

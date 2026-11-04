@@ -21,3 +21,14 @@ Cada decisión sigue la misma estructura: contexto, decisión, alternativas cons
 - [0011 · Mantener recordatorios y estadísticas en el monolito](0011-no-separar-servicios.md)
 - [0012 · Proyecciones de consulta en la frontera](0012-consultas-publicas.md)
 - [0013 · Fachada de candidaturas para los consumidores de otros módulos](0013-fachada-entre-modulos.md)
+
+## Evolución del taller 3
+
+- [0014 · Oportunidad y proceso con identidad revisable](0014-modelo-oportunidades.md)
+- [0015 · Una transacción local y un índice parcial para el proceso activo](0015-consistencia-proceso-activo.md)
+- [0016 · Conservar actividades y aplicar escrituras selectivas](0016-conservar-agregado-actividades.md)
+- [0017 · Proveedores detrás de puertos y traducción explícita](0017-puertos-proveedores.md)
+- [0018 · Avisos externos explícitos con incertidumbre conservada](0018-entrega-explicita-sin-reintento.md)
+- [0019 · Un contexto de seguimiento, otro de entrega y perfil local](0019-contextos-y-perfil.md)
+
+- [0020 · Automatización configurable y cola local conservadora](0020-automatizacion-y-cola-local.md) — sustituye 0018 y la dirección del contrato de preferencias de 0019.

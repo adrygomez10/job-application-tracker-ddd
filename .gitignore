@@ -10,3 +10,7 @@
 /.vscode/
 *.log
 *.iml
+.venv-style/
+.ruff_cache/
+.mypy_cache/
+__pycache__/

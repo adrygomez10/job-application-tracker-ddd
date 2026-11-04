@@ -35,6 +35,12 @@ server:
         same-site: strict
 tracker:
   zone: ${TRACKER_ZONE:Europe/Madrid}
+  greenhouse:
+    board: ${TRACKER_GREENHOUSE_BOARD:}
+    employer: ${TRACKER_GREENHOUSE_EMPLOYER:}
+  ntfy:
+    topic: ${TRACKER_NTFY_TOPIC:}
+    token: ${TRACKER_NTFY_TOKEN:}
   username: ${TRACKER_USERNAME}
   password-hash: ${TRACKER_PASSWORD_HASH}
 management:

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Mi perfil', ~{::main}, 'profile')}">
+<body><main id="main" class="container">
+  <header class="page-heading"><h1 class="page-title">Mi perfil de búsqueda</h1>
+    <p>Las preferencias orientan la comparación. Las oportunidades siguen visibles aunque no coincidan.</p></header>
+  <section class="panel"><form th:action="@{/profile}" method="post" class="form-grid">
+    <input type="hidden" name="version" th:value="${profile.version}">
+    <label>Nombre visible<input name="displayName" required maxlength="120" th:value="${profile.displayName}"></label>
+    <label>Puesto que buscas<input name="targetRole" maxlength="180" th:value="${profile.targetRole}"></label>
+    <label>Ubicación preferida<input name="location" maxlength="160" th:value="${profile.location}"></label>
+    <label>Modalidad<select name="preferredMode"><option th:each="mode : ${modes}" th:value="${mode}" th:text="${#messages.msg('mode.' + mode)}" th:selected="${mode == profile.preferredMode}"></option></select></label>
+    <label>Salario bruto mínimo objetivo<input type="number" name="salary.minimum" step="0.01" min="0" th:value="${profile.targetSalary?.minimum}"></label>
+    <label>Máximo objetivo (opcional)<input type="number" name="salary.maximum" step="0.01" min="0" th:value="${profile.targetSalary?.maximum}"></label>
+    <label>Moneda ISO<input name="salary.currency" th:value="${profile.targetSalary == null ? 'EUR' : profile.targetSalary.currency}" maxlength="3"></label>
+    <label>Periodo<select name="salary.period"><option value="YEAR" th:selected="${profile.targetSalary == null or profile.targetSalary.period.name() == 'YEAR'}">Anual</option><option value="MONTH" th:selected="${profile.targetSalary != null and profile.targetSalary.period.name() == 'MONTH'}">Mensual</option></select></label>
+    <label>Zona de los avisos<input name="zone" th:value="${profile.zone}" required maxlength="80" placeholder="Europe/Madrid"></label>
+    <label>Silencio desde<input name="quietFrom" type="time" required th:value="${profile.quietFrom}"></label>
+    <label>Silencio hasta<input name="quietUntil" type="time" required th:value="${profile.quietUntil}"></label>
+    <label class="check"><input name="externalNotifications" type="checkbox" value="true" th:checked="${profile.externalNotifications}"> Permitir avisos externos mediante ntfy</label>
+    <label class="check"><input name="autoImport" type="checkbox" value="true" th:checked="${profile.automation.importEnabled}"> Consultar Greenhouse automáticamente</label>
+    <label>Intervalo de importación (minutos)<input name="importInterval" type="number" min="15" max="1440" required th:value="${profile.automation.importIntervalMinutes}"></label>
+    <label class="check"><input name="autoNotifications" type="checkbox" value="true" th:checked="${profile.automation.notificationsEnabled}"> Generar avisos automáticos</label>
+    <label class="check"><input name="notifyTasks" type="checkbox" value="true" th:checked="${profile.automation.tasks}"> Avisar de tareas vencidas</label>
+    <label class="check"><input name="notifyInterviews" type="checkbox" value="true" th:checked="${profile.automation.interviews}"> Avisar de entrevistas en las próximas 24 horas</label>
+    <label class="check"><input name="notifyOpportunities" type="checkbox" value="true" th:checked="${profile.automation.newOpportunities}"> Avisar de nuevas oportunidades importadas</label>
+    <p class="muted">Las automatizaciones empiezan desactivadas y funcionan con la aplicación encendida. Cada importación con novedades produce un resumen, que caduca a las 24 horas. Revisa el <a th:href="@{/integrations}">historial de integraciones</a>.</p>
+    <p class="muted">Los avisos se envían desde la cola de Notificaciones, automáticamente o tras una solicitud explícita. Requieren un canal configurado por el administrador. El contenido externo es genérico: un recordatorio pendiente o el número de nuevas oportunidades. El silencio aplaza la entrega. Revocar el consentimiento cancela los pendientes. Dos horas iguales desactivan el silencio. La zona de visualización general sigue en TRACKER_ZONE.</p>
+    <button class="btn btn-primary" type="submit">Guardar perfil</button>
+  </form></section>
+</main></body></html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Oportunidades', ~{::main}, 'opportunities')}">
+<body><main id="main" class="container">
+  <header class="page-heading"><h1 class="page-title">Oportunidades</h1>
+    <p>Una oportunidad identifica el puesto. Cada envío abre un proceso y conserva su propio historial.</p>
+    <a th:href="@{/profile}">Ajustar mi perfil de búsqueda</a></header>
+  <p class="notice" th:if="${importResult != null}"
+     th:text="'Importadas: ' + ${importResult.imported} + '. Ya conocidas: ' + ${importResult.unchanged}"></p>
+  <section class="panel"><h2>Añadir oportunidad</h2>
+    <form th:action="@{/opportunities}" method="post" class="form-grid">
+      <input type="hidden" name="id" th:value="${newId}">
+      <label>Empresa contratante<input name="employer" required maxlength="160"></label>
+      <label>Agencia intermediaria (opcional)<input name="agency" maxlength="160"></label>
+      <label>Puesto<input name="role" required maxlength="180"></label>
+      <label>Ubicación<input name="location" maxlength="160"></label>
+      <label>Modalidad<select name="mode"><option value="UNSPECIFIED">Sin confirmar</option><option value="REMOTE">Remoto</option><option value="HYBRID">Híbrido</option><option value="ONSITE">Presencial</option></select></label>
+      <label>Enlace de la oferta<input type="url" name="url" maxlength="2000"></label>
+      <label>Salario bruto mínimo (opcional)<input type="number" name="salary.minimum" min="0" max="999999999999.99" step="0.01"></label>
+      <label>Salario máximo (vacío = sin techo publicado)<input type="number" name="salary.maximum" min="0" max="999999999999.99" step="0.01"></label>
+      <label>Moneda ISO<input name="salary.currency" value="EUR" maxlength="3"></label>
+      <label>Periodo<select name="salary.period"><option value="YEAR">Anual</option><option value="MONTH">Mensual</option></select></label>
+      <button class="btn btn-primary" type="submit">Guardar oportunidad</button>
+    </form>
+  </section>
+  <section class="panel"><h2>Consultar Greenhouse</h2>
+    <p>El administrador configura una empresa y su tablón. La consulta importa oportunidades; no envía candidaturas ni sobrescribe tus anotaciones. Sin configuración devuelve un error de proveedor. <a th:href="@{/integrations}">Ver ejecuciones y estado</a>.</p>
+    <form th:action="@{/opportunities/import-greenhouse}" method="post"><button class="btn" type="submit">Importar ofertas del tablón configurado</button></form>
+  </section>
+  <section class="panel"><h2>Oportunidades guardadas</h2>
+    <form th:action="@{/opportunities}" method="get" class="form-grid">
+      <label>Filtrar por empresa<input name="employer" maxlength="180" th:value="${criteria.employer}"></label>
+      <label>Filtrar por puesto<input name="role" maxlength="180" th:value="${criteria.role}"></label>
+      <label>Filtrar por modalidad<select name="mode"><option value="">Todas</option><option th:each="mode : ${modes}" th:value="${mode}" th:text="${#messages.msg('mode.' + mode)}" th:selected="${mode.name() == criteria.mode}"></option></select></label>
+      <label>Filtrar por procedencia<input name="source" maxlength="180" placeholder="greenhouse, manual, legacy" th:value="${criteria.source}"></label>
+      <label>Buscar proceso para relacionar<input name="processQuery" maxlength="180" th:value="${processQuery}"></label>
+      <button class="btn" type="submit">Aplicar filtros</button>
+    </form>
+    <nav aria-label="Páginas de oportunidades" class="filters">
+      <a th:if="${criteria.page > 0}" th:href="@{/opportunities(page=${criteria.page - 1},employer=${criteria.employer},role=${criteria.role},mode=${criteria.mode},source=${criteria.source},processQuery=${processQuery},processPage=${processPage})}">Oportunidades anteriores</a>
+      <span th:text="'Página ' + ${criteria.page + 1}"></span>
+      <a th:if="${hasNext}" th:href="@{/opportunities(page=${criteria.page + 1},employer=${criteria.employer},role=${criteria.role},mode=${criteria.mode},source=${criteria.source},processQuery=${processQuery},processPage=${processPage})}">Más oportunidades</a>
+    </nav>
+    <nav aria-label="Páginas de procesos relacionables" class="filters">
+      <a th:if="${processPage > 0}" th:href="@{/opportunities(page=${criteria.page},employer=${criteria.employer},role=${criteria.role},mode=${criteria.mode},source=${criteria.source},processQuery=${processQuery},processPage=${processPage - 1})}">Procesos anteriores</a>
+      <span th:text="'Procesos · página ' + ${processPage + 1}"></span>
+      <a th:if="${processHasNext}" th:href="@{/opportunities(page=${criteria.page},employer=${criteria.employer},role=${criteria.role},mode=${criteria.mode},source=${criteria.source},processQuery=${processQuery},processPage=${processPage + 1})}">Más procesos</a>
+    </nav>
+    <p th:if="${items.isEmpty()}">Todavía no hay oportunidades.</p>
+    <ul class="open-list">
+      <li th:each="item : ${items}">
+        <h3 th:text="${item.opportunity.details.role}"></h3>
+        <p><strong th:text="${item.opportunity.details.employer}"></strong>
+          <span th:if="${!item.opportunity.details.agency.isEmpty()}" th:text="' · Agencia: ' + ${item.opportunity.details.agency}"></span></p>
+        <p th:text="${item.opportunity.details.location} + ' · ' + ${#messages.msg('mode.' + item.opportunity.details.workMode)}"></p>
+        <p th:if="${item.opportunity.details.salary != null}" th:text="${item.opportunity.details.salary.label()}"></p>
+        <p class="muted" th:if="${item.opportunity.details.salary == null}">Salario sin confirmar</p>
+        <p th:each="reason : ${item.reasons}" th:text="${reason}"></p>
+        <p class="muted" th:text="'Identidad: ' + ${item.opportunity.id} + ' · Origen: ' + ${item.opportunity.sourceKey}"></p>
+        <a th:if="${!item.opportunity.details.url.isEmpty()}" th:href="${item.opportunity.details.url}" rel="noreferrer noopener" target="_blank">Ver oferta original</a>
+        <form th:action="@{/opportunities/{id}/start(id=${item.opportunity.id})}" method="post" class="filters">
+          <input type="hidden" name="processId" th:value="${item.processId}">
+          <label>Canal del envío<input name="channel" maxlength="160" required placeholder="Empresa directa o agencia"></label>
+          <button class="btn btn-primary" type="submit">Registrar candidatura enviada hoy</button>
+        </form>
+        <p class="muted">Cierra el proceso anterior antes de volver a presentarte a esta oportunidad. Archivar solo lo oculta.</p>
+        <details><summary>Relacionar un proceso existente con esta oportunidad</summary>
+          <p>Confirma que es el mismo puesto. Esta decisión conserva las notas y estados del proceso. Si ya hay otro activo, tendrás que resolver primero esa duplicidad. Las oportunidades anteriores se conservan para mantener su procedencia.</p>
+          <form th:action="@{/opportunities/{id}/relate(id=${item.opportunity.id})}" method="post">
+            <label>Proceso (página seleccionada)<select name="processKey" required><option th:each="process : ${processes}" th:value="${process.key()}" th:text="${process.company} + ' · ' + ${process.role} + ' · ' + ${#messages.msg('status.' + process.status)}"></option></select></label>
+            <button type="submit" class="btn">Confirmar identidad y relacionar</button>
+          </form>
+        </details>
+        <details><summary>Corregir datos de la oportunidad</summary>
+          <form th:action="@{/opportunities/{id}/revise(id=${item.opportunity.id})}" method="post" class="form-grid">
+            <input type="hidden" name="version" th:value="${item.opportunity.version}">
+            <label>Empresa<input name="employer" th:value="${item.opportunity.details.employer}" required maxlength="160"></label>
+            <label>Agencia<input name="agency" th:value="${item.opportunity.details.agency}" maxlength="160"></label>
+            <label>Puesto<input name="role" th:value="${item.opportunity.details.role}" required maxlength="180"></label>
+            <label>Ubicación<input name="location" th:value="${item.opportunity.details.location}" maxlength="160"></label>
+            <label>Modalidad<select name="mode"><option th:each="mode : ${modes}" th:value="${mode}" th:text="${#messages.msg('mode.' + mode)}" th:selected="${mode == item.opportunity.details.workMode}"></option></select></label>
+            <label>Enlace<input type="url" name="url" th:value="${item.opportunity.details.url}"></label>
+            <label>Mínimo<input type="number" name="salary.minimum" step="0.01" min="0" th:value="${item.opportunity.details.salary?.minimum}"></label>
+            <label>Máximo<input type="number" name="salary.maximum" step="0.01" min="0" th:value="${item.opportunity.details.salary?.maximum}"></label>
+            <label>Moneda<input name="salary.currency" th:value="${item.opportunity.details.salary == null ? 'EUR' : item.opportunity.details.salary.currency}"></label>
+            <label>Periodo<select name="salary.period"><option value="YEAR" th:selected="${item.opportunity.details.salary == null or item.opportunity.details.salary.period.name() == 'YEAR'}">Anual</option><option value="MONTH" th:selected="${item.opportunity.details.salary != null and item.opportunity.details.salary.period.name() == 'MONTH'}">Mensual</option></select></label>
+            <button class="btn" type="submit">Guardar corrección</button>
+          </form>
+        </details>
+      </li>
+    </ul>
+  </section>
+</main></body></html>

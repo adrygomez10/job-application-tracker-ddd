@@ -17,20 +17,20 @@ help:
 	  '' \
 	  '  make doctor       Comprueba Docker, Compose y el motor' \
 	  '  make setup        Construye la imagen y pide las credenciales (interactivo)' \
-	  '  make up           Arranca y espera a que los servicios estén saludables' \
+	  '  make up           Arranca y espera a que los servicios estÃ©n saludables' \
 	  '  make down         Detiene los servicios conservando los datos' \
-	  '  make rebuild      Reconstruye y arranca tras modificar el código' \
+	  '  make rebuild      Reconstruye y arranca tras modificar el cÃ³digo' \
 	  '  make build        Construye la imagen sin arrancar servicios' \
 	  '  make compile      Compila Java con Maven en Docker' \
 	  '  make verify       Ejecuta calidad y tests sin PostgreSQL ni navegador' \
 	  '  make ps           Muestra el estado de los servicios' \
-	  '  make logs         Sigue los registros de la aplicación (salir: Ctrl+C)' \
+	  '  make logs         Sigue los registros de la aplicaciÃ³n (salir: Ctrl+C)' \
 	  '  make test         Ejecuta la suite aislada y retira su entorno' \
 	  '  make quality      Comprueba formato, estilo, complejidad, duplicados y arquitectura' \
-	  '  make format       Aplica el formato compartido al código Java y al POM' \
+	  '  make format       Aplica el formato compartido al cÃ³digo Java y al POM' \
 	  '  make backup       Guarda una copia en backups/' \
 	  '  make restore FILE="backups/FILE.dump"' \
-	  '                    Restaura en tracker_restore conservando la base de la aplicación'
+	  '                    Restaura en tracker_restore conservando la base de la aplicaciÃ³n'
 
 doctor:
 	@command -v docker >/dev/null 2>&1 || { printf '%s\n' 'Docker CLI not found. Docker with Compose v2 is required.' >&2; exit 1; }
@@ -45,7 +45,7 @@ setup: doctor
 	bash scripts/setup.sh
 
 build: doctor
-	docker build --target runtime -t job-application-tracker-modular:local .
+	docker build --target runtime -t job-application-tracker-ddd:local .
 
 compile: doctor
 	bash scripts/maven.sh compile

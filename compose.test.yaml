@@ -1,4 +1,4 @@
-name: job-application-tracker-modular-tests
+name: job-application-tracker-ddd-tests
 services:
   test-db:
     image: postgres:18.6

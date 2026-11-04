@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: page('Integraciones', ~{::main}, 'opportunities')}">
+<body><main id="main" class="container">
+  <header class="page-heading"><h1 class="page-title">Integraciones e importaciones</h1>
+    <p>Consulta manual y automática del tablón Greenhouse. <a th:href="@{/profile}">Configurar automatización</a> · <a th:href="@{/opportunities}">Ver oportunidades</a></p></header>
+  <p th:text="${configured ? 'Tablón configurado' : 'Tablón desactivado: falta configuración del administrador'}"></p>
+  <p>La siguiente consulta automática espera el intervalo del perfil desde el último intento finalizado. Al arrancar no se acumulan las consultas omitidas. Las ejecuciones fallidas conservan tus datos; no se muestran respuestas privadas del proveedor.</p>
+  <section class="panel"><h2>Historial de ejecuciones</h2>
+    <p th:if="${runs.isEmpty()}">Todavía no hay ejecuciones.</p>
+    <ul class="open-list"><li th:each="run : ${runs}">
+      <p th:text="${#messages.msg('feed.' + run.state)} + ' · ' + ${#messages.msg('feed.' + run.origin)}"></p>
+      <p th:text="'Importadas: ' + ${run.imported} + ' · Conocidas: ' + ${run.unchanged}"></p>
+      <p class="muted" th:text="${run.startedAt} + ' · ' + ${run.finishedAt}"></p>
+    </li></ul>
+    <nav aria-label="Páginas de importaciones" class="filters"><a th:if="${page > 0}" th:href="@{/integrations(page=${page - 1})}">Anterior</a><span th:text="'Página ' + ${page + 1}"></span><a th:if="${runs.size() == 25}" th:href="@{/integrations(page=${page + 1})}">Siguiente</a></nav>
+  </section>
+</main></body></html>
