@@ -1,6 +1,7 @@
 """Check the working tree or an isolated export of Git's staged content."""
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -43,6 +44,19 @@ def check_tools(directory: Path) -> int:
     return 0
 
 
+def report_environment(directory: Path) -> tuple[str, ...]:
+    """Match generated reports to the exported project directory owner."""
+    if os.name != "posix":
+        return ()
+    owner = directory.stat()
+    return (
+        "--env",
+        f"REPORT_UID={owner.st_uid}",
+        "--env",
+        f"REPORT_GID={owner.st_gid}",
+    )
+
+
 def check_project(directory: Path) -> int:
     """Run the same Java gate for precommit, local work and CI."""
     result = check_tools(directory)
@@ -65,6 +79,7 @@ def check_project(directory: Path) -> int:
                 "run",
                 "--rm",
                 "--build",
+                *report_environment(directory),
                 "--entrypoint",
                 "bash",
                 "tests",
