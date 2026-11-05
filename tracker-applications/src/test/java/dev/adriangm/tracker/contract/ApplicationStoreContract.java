@@ -5,9 +5,9 @@ import static dev.adriangm.tracker.support.Fixtures.saved;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.EditConflict;
-import dev.adriangm.tracker.applications.application.UnitOfWork;
+import dev.adriangm.tracker.applications.application.error.EditConflict;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.application.port.UnitOfWork;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 

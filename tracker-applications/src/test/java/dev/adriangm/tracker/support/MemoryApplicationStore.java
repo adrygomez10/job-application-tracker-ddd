@@ -1,9 +1,9 @@
 package dev.adriangm.tracker.support;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.EditConflict;
-import dev.adriangm.tracker.applications.application.RecordMissing;
-import dev.adriangm.tracker.applications.domain.JobApplication;
+import dev.adriangm.tracker.applications.application.error.EditConflict;
+import dev.adriangm.tracker.applications.application.error.RecordMissing;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

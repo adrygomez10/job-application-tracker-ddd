@@ -1,8 +1,8 @@
 package dev.adriangm.tracker.notifications.adapter.web;
 
-import dev.adriangm.tracker.notifications.application.NotificationChannel;
-import dev.adriangm.tracker.notifications.application.NotificationQueue;
-import dev.adriangm.tracker.notifications.application.SendReminder;
+import dev.adriangm.tracker.notifications.application.collection.SendReminder;
+import dev.adriangm.tracker.notifications.application.port.NotificationChannel;
+import dev.adriangm.tracker.notifications.application.port.NotificationQueue;
 import dev.adriangm.tracker.reminders.api.ReminderNotifications;
 import java.util.UUID;
 import org.springframework.stereotype.Controller;

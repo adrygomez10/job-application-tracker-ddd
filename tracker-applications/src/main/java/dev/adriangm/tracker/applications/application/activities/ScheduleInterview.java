@@ -1,8 +1,8 @@
 package dev.adriangm.tracker.applications.application.activities;
 
-import dev.adriangm.tracker.applications.application.VersionedUpdate;
-import dev.adriangm.tracker.applications.domain.Interview;
-import dev.adriangm.tracker.applications.domain.JobApplication;
+import dev.adriangm.tracker.applications.application.support.VersionedUpdate;
+import dev.adriangm.tracker.applications.domain.activity.Interview;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.Objects;

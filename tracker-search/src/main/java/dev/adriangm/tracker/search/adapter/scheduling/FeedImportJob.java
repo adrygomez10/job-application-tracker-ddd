@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.search.adapter.scheduling;
 
-import dev.adriangm.tracker.search.application.FeedRuns;
-import dev.adriangm.tracker.search.application.ImportFeed;
+import dev.adriangm.tracker.search.application.feed.ImportFeed;
+import dev.adriangm.tracker.search.application.port.FeedRuns;
 import java.time.Clock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,8 +38,9 @@ public class FeedImportJob {
     {
         try {
             imports.tick();
-        } catch (org.springframework.dao.DataAccessException | dev.adriangm.tracker.search.application.FeedUnavailable
-            | dev.adriangm.tracker.search.application.SearchConflict failure) {
+        } catch (org.springframework.dao.DataAccessException
+            | dev.adriangm.tracker.search.application.error.FeedUnavailable
+            | dev.adriangm.tracker.search.application.error.SearchConflict failure) {
             LOG.warn("Feed import failed: {}", failure.getClass().getSimpleName());
         }
     }

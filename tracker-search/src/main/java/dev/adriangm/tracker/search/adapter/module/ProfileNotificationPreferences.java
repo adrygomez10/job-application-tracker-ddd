@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.search.adapter.module;
 
 import dev.adriangm.tracker.notifications.api.NotificationPreferences;
-import dev.adriangm.tracker.search.application.ProfileRepository;
+import dev.adriangm.tracker.search.application.port.ProfileRepository;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -65,11 +65,11 @@ class DddArchitectureTest {
             .resideOutsideOfPackages("..search.domain..", "..search.adapter.persistence..")
             .should()
             .callMethod(
-                dev.adriangm.tracker.search.domain.Opportunity.class,
+                dev.adriangm.tracker.search.domain.opportunity.Opportunity.class,
                 "reconstitute",
                 java.util.UUID.class,
                 long.class,
-                dev.adriangm.tracker.search.domain.OpportunityDetails.class,
+                dev.adriangm.tracker.search.domain.opportunity.OpportunityDetails.class,
                 String.class
             )
             .check(ArchitectureClasses.ALL);

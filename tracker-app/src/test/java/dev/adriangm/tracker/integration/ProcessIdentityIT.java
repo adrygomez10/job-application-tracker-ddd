@@ -3,10 +3,10 @@ package dev.adriangm.tracker.integration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import dev.adriangm.tracker.applications.application.EditConflict;
-import dev.adriangm.tracker.search.application.ManageOpportunities;
-import dev.adriangm.tracker.search.domain.OpportunityDetails;
+import dev.adriangm.tracker.applications.application.error.EditConflict;
+import dev.adriangm.tracker.search.application.opportunity.ManageOpportunities;
 import dev.adriangm.tracker.search.domain.WorkMode;
+import dev.adriangm.tracker.search.domain.opportunity.OpportunityDetails;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.notifications.adapter.http;
 
-import dev.adriangm.tracker.notifications.application.NotificationChannel;
 import dev.adriangm.tracker.notifications.api.NotificationMessage;
+import dev.adriangm.tracker.notifications.application.port.NotificationChannel;
 import dev.adriangm.tracker.notifications.domain.DeliveryState;
 import java.io.IOException;
 import java.net.URI;

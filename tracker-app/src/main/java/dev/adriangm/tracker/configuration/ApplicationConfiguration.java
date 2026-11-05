@@ -1,8 +1,5 @@
 package dev.adriangm.tracker.configuration;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.UnitOfWork;
-import dev.adriangm.tracker.applications.application.VersionedUpdate;
 import dev.adriangm.tracker.applications.application.activities.AddNote;
 import dev.adriangm.tracker.applications.application.activities.AddTask;
 import dev.adriangm.tracker.applications.application.activities.CompleteTask;
@@ -12,7 +9,10 @@ import dev.adriangm.tracker.applications.application.details.ArchiveApplication;
 import dev.adriangm.tracker.applications.application.details.EditDetails;
 import dev.adriangm.tracker.applications.application.details.RegisterApplication;
 import dev.adriangm.tracker.applications.application.details.RestoreApplication;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.application.port.UnitOfWork;
 import dev.adriangm.tracker.applications.application.status.ChangeStatus;
+import dev.adriangm.tracker.applications.application.support.VersionedUpdate;
 import java.time.Clock;
 import java.time.ZoneId;
 import java.util.function.Supplier;
@@ -57,14 +57,19 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    dev.adriangm.tracker.applications.application.OpportunityProcesses opportunityProcesses(
-        dev.adriangm.tracker.applications.application.OpportunityProcessStore store,
+    dev.adriangm.tracker.applications.application.process.OpportunityProcesses opportunityProcesses(
+        dev.adriangm.tracker.applications.application.port.OpportunityProcessStore store,
         RegisterApplication register,
         UnitOfWork work,
         Clock clock
     )
     {
-        return new dev.adriangm.tracker.applications.application.OpportunityProcesses(store, register, work, clock);
+        return new dev.adriangm.tracker.applications.application.process.OpportunityProcesses(
+            store,
+            register,
+            work,
+            clock
+        );
     }
 
     @Bean

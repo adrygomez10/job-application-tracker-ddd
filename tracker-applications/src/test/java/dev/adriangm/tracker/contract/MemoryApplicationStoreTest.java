@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.contract;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.UnitOfWork;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.application.port.UnitOfWork;
 import dev.adriangm.tracker.support.Fixtures;
 import dev.adriangm.tracker.support.MemoryApplicationStore;
 

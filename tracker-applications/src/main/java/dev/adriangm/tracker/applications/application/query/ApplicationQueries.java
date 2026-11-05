@@ -1,8 +1,8 @@
 package dev.adriangm.tracker.applications.application.query;
 
-import dev.adriangm.tracker.applications.domain.JobApplication;
-import dev.adriangm.tracker.applications.domain.Status;
-import dev.adriangm.tracker.applications.domain.WorkMode;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
+import dev.adriangm.tracker.applications.domain.candidacy.WorkMode;
+import dev.adriangm.tracker.applications.domain.status.Status;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Collections;

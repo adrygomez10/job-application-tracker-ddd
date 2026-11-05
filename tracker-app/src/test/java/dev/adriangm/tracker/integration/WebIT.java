@@ -14,10 +14,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import dev.adriangm.tracker.applications.application.activities.AddNote;
 import dev.adriangm.tracker.applications.application.details.RegisterApplication;
-import dev.adriangm.tracker.applications.domain.ApplicationDetails;
-import dev.adriangm.tracker.applications.domain.Status;
-import dev.adriangm.tracker.applications.domain.TimelineEvent;
-import dev.adriangm.tracker.applications.domain.WorkMode;
+import dev.adriangm.tracker.applications.domain.candidacy.ApplicationDetails;
+import dev.adriangm.tracker.applications.domain.candidacy.WorkMode;
+import dev.adriangm.tracker.applications.domain.history.TimelineEvent;
+import dev.adriangm.tracker.applications.domain.status.Status;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;

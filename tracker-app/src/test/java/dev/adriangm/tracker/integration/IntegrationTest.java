@@ -5,10 +5,10 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.UnitOfWork;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.application.port.UnitOfWork;
 import dev.adriangm.tracker.applications.application.query.ApplicationQueries;
-import dev.adriangm.tracker.applications.domain.JobApplication;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

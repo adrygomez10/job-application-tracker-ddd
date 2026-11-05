@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.support;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.domain.JobApplication;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
 import java.util.Optional;
 import java.util.UUID;
 

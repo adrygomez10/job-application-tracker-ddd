@@ -1,7 +1,7 @@
 package dev.adriangm.tracker.notifications.adapter.persistence;
 
 import dev.adriangm.tracker.notifications.api.NotificationMessage;
-import dev.adriangm.tracker.notifications.application.NotificationQueue;
+import dev.adriangm.tracker.notifications.application.port.NotificationQueue;
 import dev.adriangm.tracker.notifications.domain.DeliveryState;
 import java.sql.ResultSet;
 import java.sql.SQLException;

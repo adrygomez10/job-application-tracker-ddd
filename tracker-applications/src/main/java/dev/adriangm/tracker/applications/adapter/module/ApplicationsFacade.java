@@ -1,11 +1,11 @@
 package dev.adriangm.tracker.applications.adapter.module;
 
 import dev.adriangm.tracker.applications.api.ApplicationsApi;
-import dev.adriangm.tracker.applications.application.OpportunityProcesses;
 import dev.adriangm.tracker.applications.application.details.RegisterApplication;
+import dev.adriangm.tracker.applications.application.process.OpportunityProcesses;
 import dev.adriangm.tracker.applications.application.query.ApplicationQueries;
-import dev.adriangm.tracker.applications.domain.Status;
-import dev.adriangm.tracker.applications.domain.WorkMode;
+import dev.adriangm.tracker.applications.domain.candidacy.WorkMode;
+import dev.adriangm.tracker.applications.domain.status.Status;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;

@@ -11,8 +11,8 @@
 
     <section aria-label="Actividad" class="stats">
         <div><strong th:text="${counts.active()}">0</strong><span>Candidaturas activas</span></div>
-        <div><strong th:text="${counts.of(T(dev.adriangm.tracker.applications.domain.Status).SAVED)}">0</strong><span>Ofertas guardadas</span></div>
-        <div><strong th:text="${counts.of(T(dev.adriangm.tracker.applications.domain.Status).OFFER_RECEIVED)}">0</strong><span>Ofertas recibidas</span></div>
+        <div><strong th:text="${counts.of(T(dev.adriangm.tracker.applications.domain.status.Status).SAVED)}">0</strong><span>Ofertas guardadas</span></div>
+        <div><strong th:text="${counts.of(T(dev.adriangm.tracker.applications.domain.status.Status).OFFER_RECEIVED)}">0</strong><span>Ofertas recibidas</span></div>
     </section>
 
     <section class="panel">

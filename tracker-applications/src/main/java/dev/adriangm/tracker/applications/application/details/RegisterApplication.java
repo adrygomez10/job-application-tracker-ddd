@@ -1,10 +1,10 @@
 package dev.adriangm.tracker.applications.application.details;
 
-import dev.adriangm.tracker.applications.application.ApplicationStore;
-import dev.adriangm.tracker.applications.application.UnitOfWork;
-import dev.adriangm.tracker.applications.domain.ApplicationDetails;
-import dev.adriangm.tracker.applications.domain.JobApplication;
-import dev.adriangm.tracker.applications.domain.Status;
+import dev.adriangm.tracker.applications.application.port.ApplicationStore;
+import dev.adriangm.tracker.applications.application.port.UnitOfWork;
+import dev.adriangm.tracker.applications.domain.candidacy.ApplicationDetails;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
+import dev.adriangm.tracker.applications.domain.status.Status;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;

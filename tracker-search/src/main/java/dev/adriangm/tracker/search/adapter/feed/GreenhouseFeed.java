@@ -1,9 +1,9 @@
 package dev.adriangm.tracker.search.adapter.feed;
 
-import dev.adriangm.tracker.search.application.FeedUnavailable;
-import dev.adriangm.tracker.search.application.OfferFeed;
-import dev.adriangm.tracker.search.domain.OpportunityDetails;
+import dev.adriangm.tracker.search.application.error.FeedUnavailable;
+import dev.adriangm.tracker.search.application.port.OfferFeed;
 import dev.adriangm.tracker.search.domain.WorkMode;
+import dev.adriangm.tracker.search.domain.opportunity.OpportunityDetails;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

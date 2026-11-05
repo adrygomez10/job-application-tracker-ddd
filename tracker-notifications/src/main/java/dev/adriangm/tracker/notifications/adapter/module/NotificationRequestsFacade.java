@@ -3,7 +3,7 @@ package dev.adriangm.tracker.notifications.adapter.module;
 import dev.adriangm.tracker.notifications.api.NotificationMessage;
 import dev.adriangm.tracker.notifications.api.NotificationPreferences;
 import dev.adriangm.tracker.notifications.api.NotificationRequests;
-import dev.adriangm.tracker.notifications.application.NotificationQueue;
+import dev.adriangm.tracker.notifications.application.port.NotificationQueue;
 import java.time.Instant;
 import java.util.UUID;
 import org.springframework.stereotype.Component;

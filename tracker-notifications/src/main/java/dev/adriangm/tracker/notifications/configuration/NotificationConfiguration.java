@@ -2,8 +2,8 @@ package dev.adriangm.tracker.notifications.configuration;
 
 import dev.adriangm.tracker.notifications.adapter.http.NtfyChannel;
 import dev.adriangm.tracker.notifications.api.NotificationPreferences;
-import dev.adriangm.tracker.notifications.application.NotificationChannel;
-import dev.adriangm.tracker.notifications.application.SendReminder;
+import dev.adriangm.tracker.notifications.application.collection.SendReminder;
+import dev.adriangm.tracker.notifications.application.port.NotificationChannel;
 import dev.adriangm.tracker.notifications.domain.DeliveryState;
 import dev.adriangm.tracker.reminders.api.ReminderNotifications;
 import java.net.URI;
@@ -45,14 +45,14 @@ public class NotificationConfiguration {
     }
 
     @Bean
-    dev.adriangm.tracker.notifications.application.CollectNotifications collectNotifications(
+    dev.adriangm.tracker.notifications.application.collection.CollectNotifications collectNotifications(
         NotificationPreferences preferences,
         ReminderNotifications reminders,
-        dev.adriangm.tracker.notifications.application.NotificationQueue queue,
+        dev.adriangm.tracker.notifications.application.port.NotificationQueue queue,
         Clock clock
     )
     {
-        return new dev.adriangm.tracker.notifications.application.CollectNotifications(
+        return new dev.adriangm.tracker.notifications.application.collection.CollectNotifications(
             preferences,
             reminders,
             queue,
@@ -61,15 +61,15 @@ public class NotificationConfiguration {
     }
 
     @Bean
-    dev.adriangm.tracker.notifications.application.DispatchNotifications dispatchNotifications(
+    dev.adriangm.tracker.notifications.application.delivery.DispatchNotifications dispatchNotifications(
         NotificationPreferences preferences,
         ReminderNotifications reminders,
-        dev.adriangm.tracker.notifications.application.NotificationQueue queue,
+        dev.adriangm.tracker.notifications.application.port.NotificationQueue queue,
         NotificationChannel channel,
         Clock clock
     )
     {
-        return new dev.adriangm.tracker.notifications.application.DispatchNotifications(
+        return new dev.adriangm.tracker.notifications.application.delivery.DispatchNotifications(
             queue,
             preferences,
             reminders,
@@ -82,7 +82,7 @@ public class NotificationConfiguration {
     SendReminder sendReminder(
         NotificationPreferences preferences,
         ReminderNotifications reminders,
-        dev.adriangm.tracker.notifications.application.NotificationQueue store,
+        dev.adriangm.tracker.notifications.application.port.NotificationQueue store,
         NotificationChannel channel,
         Clock clock
     )

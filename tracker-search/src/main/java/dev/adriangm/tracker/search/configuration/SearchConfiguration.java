@@ -2,12 +2,12 @@ package dev.adriangm.tracker.search.configuration;
 
 import dev.adriangm.tracker.applications.api.ApplicationsApi;
 import dev.adriangm.tracker.search.adapter.feed.GreenhouseFeed;
-import dev.adriangm.tracker.search.application.FeedUnavailable;
-import dev.adriangm.tracker.search.application.ImportFeed;
-import dev.adriangm.tracker.search.application.ManageOpportunities;
-import dev.adriangm.tracker.search.application.OfferFeed;
-import dev.adriangm.tracker.search.application.OpportunityRepository;
-import dev.adriangm.tracker.search.application.SearchWork;
+import dev.adriangm.tracker.search.application.error.FeedUnavailable;
+import dev.adriangm.tracker.search.application.feed.ImportFeed;
+import dev.adriangm.tracker.search.application.opportunity.ManageOpportunities;
+import dev.adriangm.tracker.search.application.port.OfferFeed;
+import dev.adriangm.tracker.search.application.port.OpportunityRepository;
+import dev.adriangm.tracker.search.application.port.SearchWork;
 import java.net.URI;
 import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,8 +73,8 @@ public class SearchConfiguration {
         OfferFeed feed,
         OpportunityRepository store,
         SearchWork work,
-        dev.adriangm.tracker.search.application.ProfileRepository profiles,
-        dev.adriangm.tracker.search.application.FeedRuns runs,
+        dev.adriangm.tracker.search.application.port.ProfileRepository profiles,
+        dev.adriangm.tracker.search.application.port.FeedRuns runs,
         dev.adriangm.tracker.notifications.api.NotificationRequests notifications,
         java.time.Clock clock
     )
@@ -83,10 +83,10 @@ public class SearchConfiguration {
     }
 
     @Bean
-    dev.adriangm.tracker.search.application.SaveProfile saveProfile(
-        dev.adriangm.tracker.search.application.ProfileRepository profiles
+    dev.adriangm.tracker.search.application.profile.SaveProfile saveProfile(
+        dev.adriangm.tracker.search.application.port.ProfileRepository profiles
     )
     {
-        return new dev.adriangm.tracker.search.application.SaveProfile(profiles);
+        return new dev.adriangm.tracker.search.application.profile.SaveProfile(profiles);
     }
 }

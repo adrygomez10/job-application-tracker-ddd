@@ -1,8 +1,8 @@
 package dev.adriangm.tracker.notifications.adapter.scheduling;
 
-import dev.adriangm.tracker.notifications.application.CollectNotifications;
-import dev.adriangm.tracker.notifications.application.DispatchNotifications;
-import dev.adriangm.tracker.notifications.application.NotificationQueue;
+import dev.adriangm.tracker.notifications.application.collection.CollectNotifications;
+import dev.adriangm.tracker.notifications.application.delivery.DispatchNotifications;
+import dev.adriangm.tracker.notifications.application.port.NotificationQueue;
 import java.time.Clock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

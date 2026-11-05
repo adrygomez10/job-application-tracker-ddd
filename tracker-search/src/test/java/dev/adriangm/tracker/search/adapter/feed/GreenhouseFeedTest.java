@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.sun.net.httpserver.HttpServer;
-import dev.adriangm.tracker.search.application.FeedUnavailable;
+import dev.adriangm.tracker.search.application.error.FeedUnavailable;
 import dev.adriangm.tracker.search.domain.WorkMode;
 import java.net.InetSocketAddress;
 import java.net.URI;

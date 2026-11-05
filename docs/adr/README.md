@@ -32,3 +32,5 @@ Cada decisión sigue la misma estructura: contexto, decisión, alternativas cons
 - [0019 · Un contexto de seguimiento, otro de entrega y perfil local](0019-contextos-y-perfil.md)
 
 - [0020 · Automatización configurable y cola local conservadora](0020-automatizacion-y-cola-local.md) — sustituye 0018 y la dirección del contrato de preferencias de 0019.
+
+- [ADR-0021 · Subgrupos internos por responsabilidad](0021-organizacion-interna-por-responsabilidad.md).

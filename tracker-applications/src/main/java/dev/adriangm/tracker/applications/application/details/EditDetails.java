@@ -1,8 +1,8 @@
 package dev.adriangm.tracker.applications.application.details;
 
-import dev.adriangm.tracker.applications.application.VersionedUpdate;
-import dev.adriangm.tracker.applications.domain.ApplicationDetails;
-import dev.adriangm.tracker.applications.domain.JobApplication;
+import dev.adriangm.tracker.applications.application.support.VersionedUpdate;
+import dev.adriangm.tracker.applications.domain.candidacy.ApplicationDetails;
+import dev.adriangm.tracker.applications.domain.candidacy.JobApplication;
 import java.time.Clock;
 import java.util.Objects;
 import java.util.UUID;

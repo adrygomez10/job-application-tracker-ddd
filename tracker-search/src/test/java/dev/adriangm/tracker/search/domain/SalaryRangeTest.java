@@ -1,10 +1,9 @@
 package dev.adriangm.tracker.search.domain;
 
+import static dev.adriangm.tracker.search.support.SalaryFixtures.salary;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.math.BigDecimal;
-import java.util.Currency;
 import org.junit.jupiter.api.Test;
 
 class SalaryRangeTest {
@@ -35,13 +34,4 @@ class SalaryRangeTest {
         assertThat(annual.comparableTo(salary("42000", null, "EUR", SalaryRange.Period.YEAR))).isTrue();
     }
 
-    static SalaryRange salary(String minimum, String maximum, String currency, SalaryRange.Period period)
-    {
-        return new SalaryRange(
-            new BigDecimal(minimum),
-            maximum == null ? null : new BigDecimal(maximum),
-            Currency.getInstance(currency),
-            period
-        );
-    }
 }

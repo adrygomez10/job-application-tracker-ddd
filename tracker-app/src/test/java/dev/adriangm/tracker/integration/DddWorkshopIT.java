@@ -9,17 +9,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import dev.adriangm.tracker.applications.api.ApplicationsApi;
-import dev.adriangm.tracker.applications.application.EditConflict;
-import dev.adriangm.tracker.applications.domain.Status;
-import dev.adriangm.tracker.applications.domain.StatusChange;
+import dev.adriangm.tracker.applications.application.error.EditConflict;
+import dev.adriangm.tracker.applications.domain.status.Status;
+import dev.adriangm.tracker.applications.domain.status.StatusChange;
 import dev.adriangm.tracker.notifications.api.NotificationMessage;
-import dev.adriangm.tracker.notifications.application.NotificationQueue;
+import dev.adriangm.tracker.notifications.application.port.NotificationQueue;
 import dev.adriangm.tracker.notifications.domain.DeliveryState;
-import dev.adriangm.tracker.search.application.ManageOpportunities;
-import dev.adriangm.tracker.search.application.OpportunityRepository;
-import dev.adriangm.tracker.search.application.SearchConflict;
-import dev.adriangm.tracker.search.domain.OpportunityDetails;
+import dev.adriangm.tracker.search.application.error.SearchConflict;
+import dev.adriangm.tracker.search.application.opportunity.ManageOpportunities;
+import dev.adriangm.tracker.search.application.port.OpportunityRepository;
 import dev.adriangm.tracker.search.domain.WorkMode;
+import dev.adriangm.tracker.search.domain.opportunity.OpportunityDetails;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -34,7 +34,7 @@ class DddWorkshopIT extends IntegrationTest {
     @Autowired
     OpportunityRepository search;
     @Autowired
-    dev.adriangm.tracker.search.application.ProfileRepository profiles;
+    dev.adriangm.tracker.search.application.port.ProfileRepository profiles;
     @Autowired
     ManageOpportunities manage;
     @Autowired

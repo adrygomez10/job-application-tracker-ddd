@@ -375,3 +375,25 @@ El estilo del adaptador Python sigue PEP 8/257: cuatro espacios, 79 columnas, im
 La plantilla de importación está en `examples/offers-template.csv`. Revisa su cabecera y conserva UTF-8; las reglas de columnas y límites están descritas en el apartado de intercambio de datos.
 
 Para comprobar una copia sin sustituir los datos de trabajo, ejecuta `.\scripts\restore.ps1 -Path <copia.dump>`. El destino predeterminado es una base nueva llamada `tracker_restore`; debe no existir. Revisa esa base antes de decidir una sustitución. Restaurar sobre `tracker` exige indicar `-Database tracker -ReplaceExisting`, detiene la aplicación y sustituye esa base, por lo que requiere una copia verificada previa.
+
+
+## Organización interna de los componentes
+
+Los módulos Maven y las capas conservan su alcance. Los subgrupos permiten encontrar responsabilidades dentro de cada capa:
+
+| Componente y capa | Subgrupos |
+| --- | --- |
+| `applications.domain` | `candidacy`, `activity`, `history`, `status`, `policy`, `validation`. |
+| `applications.application` | Casos de uso en `activities`, `details`, `status` y `process`; consultas en `query`; contratos en `port`, coordinación común en `support` y errores en `error`. |
+| `applications.adapter.web` | `candidacy`, `tracking`, `security` y `support`. Los formularios de seguimiento permanecen junto a sus controladores. |
+| `applications.adapter.persistence` | `candidacy` conserva las filas JPA y su guardado; `process` contiene la relación e identidad de procesos. |
+| `search.domain` | `opportunity`, `profile`, `matching` y `validation`. `SalaryRange` y `WorkMode` siguen en la raíz porque ambos modelos utilizan esos valores. |
+| `search.application` | `opportunity`, `profile`, `feed`, `query`, `port` y `error`. |
+| `search.adapter` | Web y persistencia distinguen oportunidades, perfil e importaciones; los conversores de salarios están en `support` y `mapping`, respectivamente. |
+| `notifications.application` | `collection`, `delivery` y `port`. Su pequeño dominio conserva dos tipos sin subdivisiones adicionales. |
+
+`Checks` y `Text` son ayudas de validación, no servicios de negocio. `ActiveProcessPolicy` expresa la regla de proceso activo; `OpportunityFit` compara una oportunidad con el perfil. `ApplicationDetails` es un objeto de valor, mientras que `JobApplication` es la raíz del agregado.
+
+En Java, las subcarpetas corresponden a subpaquetes. Algunas operaciones entre grupos necesitan ser públicas; ArchUnit limita las llamadas de edición de actividades y creación de historial a `JobApplication`. Se prueba también el rechazo de un acceso indebido. Esta garantía se comprueba al ejecutar calidad; no equivale a visibilidad privada impuesta por el compilador. Los validadores solo pueden utilizarse desde su dominio y el mapeo de persistencia permanece en su adaptador.
+
+Las filas JPA y sus colaboradores mantienen el acceso de paquete: mover cada fila a otra carpeta obligaría a exponer campos o introducir accesores sin una necesidad funcional. Las reglas anteriores de independencia entre casos de uso se conservan y se añaden comprobaciones de ciclos entre los nuevos grupos. Ningún traslado modifica tablas, rutas HTTP, estados, agregados ni contratos públicos entre módulos. Consulta [ADR-0021](docs/adr/0021-organizacion-interna-por-responsabilidad.md).
